@@ -1,0 +1,11 @@
+$fonts: ('regular' normal, 'bold' bold);
+
+@each $type, $value in $fonts {
+  @font-face {
+    font-family: 'Neutra Text';
+    font-weight: $value;
+    font-style: normal;
+    font-display: swap;
+    src: url('/src/assets/fonts/neutra-text_#{$type}.woff2') format('woff2');
+  }
+}

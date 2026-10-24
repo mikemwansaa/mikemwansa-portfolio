@@ -1,0 +1,21 @@
+.Map {
+  @include m.animation(fadeInRight);
+  position: fixed;
+  width: calc(50% - v.$sidebar-width / 2);
+  height: 100vh;
+  right: 0;
+  top: 0;
+  &_loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @include m.md {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - #{v.$header_height});
+    right: auto;
+    top: auto;
+    animation: none;
+  }
+}

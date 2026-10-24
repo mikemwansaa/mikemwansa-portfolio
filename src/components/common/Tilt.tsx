@@ -1,0 +1,41 @@
+import ReactTilt from 'react-parallax-tilt'
+import type {AllHTMLAttributes, JSX} from 'react'
+
+import {IS_MOBILE_DEVICE} from '#utils/constants'
+import {DURATION} from '#styles/theme'
+
+interface ITiltProps extends AllHTMLAttributes<HTMLElement> {
+  children: JSX.Element
+  el?: any
+  className?: string
+  speed?: number
+}
+
+export default function Tilt({
+  children,
+  el: Element,
+  className,
+  speed = DURATION.longest,
+  ...props
+}: ITiltProps) {
+  const content = Element ? (
+    <Element {...props} className={IS_MOBILE_DEVICE ? className : undefined}>
+      {children}
+    </Element>
+  ) : (
+    children
+  )
+  return IS_MOBILE_DEVICE ? (
+    content
+  ) : (
+    <ReactTilt
+      className={className}
+      scale={1.05}
+      tiltMaxAngleX={10}
+      tiltMaxAngleY={10}
+      transitionSpeed={speed}
+    >
+      {content}
+    </ReactTilt>
+  )
+}

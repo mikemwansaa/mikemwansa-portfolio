@@ -1,0 +1,41 @@
+.Stepper-Text {
+  padding-top: 8px;
+  margin-bottom: 24px;
+  &_last {
+    text-align: center;
+    padding-top: 16px;
+  }
+}
+
+.Stepper-Actions {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.Stepper-Button {
+  color: v.$color_dark-violet;
+  background-color: rgba(v.$color_violet, 0.2);
+  &:not(:first-child) {
+    margin-right: 8px;
+  }
+  @include m.hover {
+    background-color: rgba(v.$color_violet, 0.4);
+    .Stepper-ButtonIcon {
+      transform: rotate(90deg);
+      &_refresh {
+        transform: rotate(360deg) scale(1.3);
+      }
+    }
+  }
+}
+
+.Stepper-ButtonIcon {
+  font-size: 24px;
+  transform: rotate(0deg);
+  transition: transform v.$duration_short v.$easing_in-out;
+  &_refresh {
+    transform: rotate(0deg) scale(1);
+    transition: transform v.$duration_medium v.$easing_in-out;
+  }
+}

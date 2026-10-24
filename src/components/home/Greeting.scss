@@ -1,0 +1,197 @@
+.Greeting {
+  padding-bottom: 160px;
+  @include m.lg {
+    padding-bottom: 80px;
+  }
+  @include m.xs {
+    .Sections-SectionWrapper:first-child > & {
+      padding-bottom: 0;
+    }
+  }
+}
+
+.Greeting-Text {
+  font-weight: normal;
+  margin-bottom: 0;
+}
+
+.Greeting-Subtext {
+  font-size: 48px;
+  @include m.lg {
+    font-size: 36px;
+  }
+  @include m.xs {
+    font-size: 28px;
+  }
+}
+
+.Greeting-Nowrap {
+  white-space: nowrap;
+}
+
+.Greeting-IconWrapper {
+  position: relative;
+  top: 0.05em;
+  margin-left: 0.2em;
+}
+
+.Greeting-Icon {
+  animation: hello v.$duration_lingering v.$easing_in-out infinite;
+  @include m.lg {
+    width: 50px;
+    height: 50px;
+  }
+  @include m.xs {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+.Greeting-Part {
+  display: inline-block;
+}
+
+.Greeting-Main {
+  font-weight: bold;
+  @include m.animationAlternate;
+}
+
+.Greeting-Word {
+  display: inline-flex;
+}
+
+.Greeting-Badge {
+  align-self: flex-start;
+  display: flex;
+  position: relative;
+  z-index: 1;
+  left: 0.35em;
+  transition: transform v.$duration_standard v.$easing_out;
+  &_first {
+    outline-color: v.$color_yellow;
+    top: 0.2em;
+    transform: rotate(20deg);
+  }
+  &_second {
+    outline-color: v.$color_red;
+    top: 0.25em;
+    transform: rotate(-15deg);
+  }
+  @include m.hover {
+    transform: rotate(0) scale(1.2);
+  }
+  &:focus {
+    transform: rotate(0) scale(1.2);
+  }
+}
+
+.Greeting-BadgeImg {
+  .Greeting-Badge_first > & {
+    @include m.animation(fadeInZoomOut, 2450ms);
+    width: 0.83em;
+    height: 0.94em;
+  }
+  .Greeting-Badge_second > & {
+    @include m.animation(fadeInZoomIn, 3050ms);
+    width: 0.91em;
+    height: 0.64em;
+  }
+}
+
+.Greeting-Actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 2em;
+  margin-bottom: -16px;
+  @include m.xs {
+    margin-bottom: 24px;
+  }
+}
+
+.Greeting-Button {
+  margin-bottom: 16px;
+  &:nth-child(1) {
+    @include m.animation(fadeInBottom, 3250ms);
+  }
+  &:nth-child(2) {
+    @include m.animation(fadeInBottom, 3350ms);
+  }
+  &:nth-child(3) {
+    @include m.animation(fadeInBottom, 3450ms);
+  }
+  @include m.xs {
+    &:first-child {
+      order: -1;
+    }
+    &:last-child {
+      order: -1;
+    }
+  }
+}
+
+.Greeting-Photo {
+  @include m.animation(fadeInLeft, 2s);
+  position: absolute;
+  z-index: -1;
+  right: 10%;
+  bottom: 0;
+  width: 42%;
+  min-width: 280px;
+  max-width: 480px;
+  @include m.lg {
+    min-width: 200px;
+    max-width: 320px;
+  }
+  @include m.md {
+    min-width: 180px;
+    right: 7.5%;
+  }
+  @include m.sm {
+    right: 24px;
+  }
+  @include m.xs {
+    @include m.animation(fadeInBottom, 3900ms);
+    position: static;
+    right: auto;
+    bottom: auto;
+    width: 180px;
+    margin: auto;
+  }
+}
+
+.Greeting-One {
+  @include m.animation(fadeInZoomInSm);
+}
+
+.Greeting-Two {
+  @include m.animation(fadeInLeft, 300ms);
+}
+
+.Greeting-Three {
+  @include m.animation(fadeInBottom, 1s);
+}
+
+.Greeting-Four {
+  @include m.animation(fadeInBottom, 1250ms);
+}
+
+.Greeting-Five {
+  @include m.animation(fadeInBottom, 1500ms);
+}
+
+.Greeting-Six {
+  @include m.animation(fadeInBottom, 1750ms);
+}
+
+.Greeting-Seven {
+  @include m.animation(fadeInRight, 2250ms);
+}
+
+.Greeting-Eight {
+  @include m.animation(fadeInRight, 2650ms);
+}
+
+.Greeting-Nine {
+  @include m.animation(fadeInRight, 2850ms);
+}

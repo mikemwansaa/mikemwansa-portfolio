@@ -1,0 +1,243 @@
+import {Fragment} from 'react'
+import {Link} from 'react-router-dom'
+import cn from 'clsx'
+import {
+  Chip,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Avatar,
+} from '@mui/material'
+import {
+  ExpandMoreRounded as ExpandMoreIcon,
+  ForwardRounded as ForwardIcon,
+  BusinessCenterRounded as BusinessCenterIcon,
+  EmojiEventsRounded as EmojiEventsIcon,
+  DashboardCustomizeRounded as DashboardCustomizeIcon,
+  ConstructionRounded as ConstructionIcon,
+} from '@mui/icons-material'
+import type {TFunction} from 'i18next'
+
+import './Job.scss'
+import {Tooltip, Company} from '#components/common'
+import {tPeriodPart} from '#utils/helpers'
+import TECHNOLOGIES from '#data/technologies'
+import PROJECTS from '#data/projects'
+import {ROUTE} from '#utils/constants'
+import type {
+  IJob,
+  IJobFeature,
+  ITechnology,
+  TKey,
+  TKeyObject,
+  TCompanyName,
+} from '#utils/types'
+
+interface IJobProps {
+  job: IJob
+  t: TFunction
+  expanded: boolean
+  onExpand: (companyName: TCompanyName) => void
+}
+
+interface IOccupationsProps {
+  t: TFunction
+  current?: boolean
+  occupations: TKey[]
+}
+
+interface IProjectsProps {
+  t: TFunction
+  companyName: string
+}
+
+interface IToolsProps {
+  t: TFunction
+  tools: string[]
+}
+
+interface IBlockProps {
+  t: TFunction
+  isDuties?: boolean
+  items: TKey[]
+}
+
+interface IFeaturesProps {
+  t: TFunction
+  features: IJobFeature[]
+}
+
+export default function Job({job, t, expanded, onExpand}: IJobProps) {
+  const handleExpandToggle = () => onExpand(job.name)
+
+  const showProjects = job.name !== 'unza' && job.name !== 'dumela'
+
+  const showTools = job.name !== 'dumela'
+
+  return (
+    <Accordion
+      component="li"
+      className="Job"
+      expanded={expanded}
+      onChange={handleExpandToggle}
+    >
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <div className="Job-Company">
+          <Company {...job.company} />
+        </div>
+      </AccordionSummary>
+      <AccordionDetails className="Job-Content">
+        <Occupations
+          t={t}
+          current={job.current}
+          occupations={job.occupations}
+        />
+        <Features t={t} features={job.features} />
+        {showProjects && <Projects t={t} companyName={job.name} />}
+        {job.duties && <Block t={t} isDuties items={job.duties} />}
+        {job.achievements && <Block t={t} items={job.achievements} />}
+        {showTools && <Tools t={t} tools={job.tools!} />}
+      </AccordionDetails>
+    </Accordion>
+  )
+}
+
+const Occupations = ({t, current, occupations}: IOccupationsProps) => (
+  <div className="Job-Occupations">
+    {occupations.map((occupation: TKey, index: number) => {
+      const last = index === 0
+      const lastCurrent = last && current
+      return (
+        <Fragment key={index}>
+          <h3
+            className={cn(
+              'Job-Occupation',
+              last && 'Job-Occupation_last',
+              lastCurrent && 'Job-Occupation_current'
+            )}
+          >
+            <span>
+              {t(`experience.occupation.${occupation}`)}
+              {lastCurrent && (
+                <Tooltip title={t('experience.current')} enterDelay={0}>
+                  <span className="Job-Badge" />
+                </Tooltip>
+              )}
+            </span>
+          </h3>
+          {index < occupations.length - 1 && (
+            <ForwardIcon className="Job-UpIcon" />
+          )}
+        </Fragment>
+      )
+    })}
+  </div>
+)
+
+const Features = ({t, features}: IFeaturesProps) => {
+  return (
+    <div className="Job-Features Job-Features_main">
+      {features.map(({Icon, ...feature}, index) => (
+        <Chip
+          key={index}
+          className="Job-Feature"
+          icon={<Icon />}
+          label={
+            feature.period ? (
+              <time>
+                {tPeriodPart(t, feature.period.from)} -{' '}
+                {feature.period.to ? tPeriodPart(t, feature.period.to) : '...'}
+              </time>
+            ) : (
+              t(`experience.job.feature.${feature.tKey}`)
+            )
+          }
+        />
+      ))}
+    </div>
+  )
+}
+
+const Projects = ({t, companyName}: IProjectsProps) => {
+  const projects = PROJECTS.filter(
+    project => project.companyName === companyName
+  )
+
+  return (
+    <div className="Job-Block">
+      <h4 className="Job-SubTitle">
+        <DashboardCustomizeIcon />
+        <span className="Job-SubTitleText">{t('experience.projects')}</span>
+      </h4>
+      <ul className="Job-Features">
+        {projects.map(project => (
+          <li key={project.name}>
+            <Chip
+              clickable
+              component={Link}
+              className={`Job-Project Job-Project_color_${project.color}`}
+              avatar={
+                <Avatar src={project.images.logo[0]} alt={project.name} />
+              }
+              label={
+                project.title ?? t(`portfolio.project.${project.name}.title`)
+              }
+              to={`${ROUTE.portfolio}/${project.name}`}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+const Tools = ({t, tools}: IToolsProps) => {
+  const technologies: ITechnology[] = tools.map(
+    tool => TECHNOLOGIES.find(item => item.name === tool) as ITechnology
+  )
+
+  return (
+    <div className="Job-Block">
+      <h4 className="Job-SubTitle">
+        <ConstructionIcon />
+        <span className="Job-SubTitleText">{t('experience.tools')}</span>
+      </h4>
+      <ul className="Job-Features">
+        {technologies.map(technology => (
+          <Chip
+            key={technology.name}
+            component="li"
+            className={`Job-Tool Job-Tool_color_${technology.color}`}
+            avatar={
+              <Avatar src={technology.images[0]} alt={technology.label} />
+            }
+            label={technology.label}
+          />
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+const Block = ({t, isDuties, items}: IBlockProps) => (
+  <div className="Job-Block">
+    <h4 className="Job-SubTitle">
+      {isDuties ? <BusinessCenterIcon /> : <EmojiEventsIcon />}
+      <span className="Job-SubTitleText">
+        {t(`experience.${isDuties ? 'duties' : 'achievements'}`)}
+      </span>
+    </h4>
+    <ul className="Job-Items">
+      {items.map((item, index) => (
+        <li key={index} className="Job-Item">
+          {t(
+            `experience.job.${isDuties ? 'duty' : 'achievement'}.${
+              (item as TKeyObject).tKey ?? item
+            }`,
+            typeof item === 'object' ? {replace: item.values} : undefined
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+)

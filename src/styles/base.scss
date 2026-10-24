@@ -1,0 +1,60 @@
+@use 'styles/variables' as v;
+@use 'styles/mixins' as m;
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  font-size: v.$font-size_base;
+  @include m.lg {
+    font-size: v.$font-size_smaller;
+  }
+  @include m.md {
+    font-size: v.$font-size_base;
+  }
+  @include m.sm {
+    font-size: v.$font-size_smaller;
+  }
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul {
+  margin: 0;
+}
+
+a {
+  user-select: none;
+  text-decoration: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+figure {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+}

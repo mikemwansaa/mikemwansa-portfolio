@@ -1,0 +1,82 @@
+$projects:
+  'msp', '7glyphs', 'lazyaz', 'lazyaz-dashboard', 'whip-around', '12-saffron',
+  'fcdc', 'service-packages', 'quarry-trucks', 'rogue-travel', '7glyphs-2',
+  'strongher', 'sds', 'foodprint-landing', 'foodprint-portal', 'foodprint',
+  'melissa-chalmers', '7glyphs-lite', 'tmf', 'embp', 'proximal-coffee', 'uls',
+  'just-hatched', 'dropdrone', 'present-me', 'present-me-portal',
+  'present-me-landing', 'ally', 'celebration', 'road-ninja',
+  'road-ninja-landing', 't1-online', 'tradease', 'vibe-media', 'madfit-cms',
+  'madfit', 'pridefit-cms', 'ally-cms', 'pridefit', 'strongher-cms', 'ally-2';
+
+.ProjectLink-Tilt {
+  overflow: hidden;
+  border-radius: v.$border-radius;
+}
+
+.ProjectLink-Item {
+  aspect-ratio: 1 / 0.7035;
+  width: 100%;
+  background-color: white;
+  border-radius: v.$border-radius;
+  overflow: hidden;
+  &.Mui-focusVisible {
+    .ProjectLink-Content {
+      opacity: 1;
+    }
+  }
+  @media (hover: hover) {
+    &:hover {
+      .ProjectLink-Content {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.ProjectLink-View {
+  width: 100%;
+  height: 100%;
+  @each $project in $projects {
+    &_name_#{$project}::after {
+      @include m.retinaImg($project, 'jpg', '/assets/projects');
+    }
+  }
+  &::after {
+    @include m.pseudo(relative);
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
+.ProjectLink-Content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  background-color: white;
+  opacity: 0;
+  transition: opacity v.$duration_short v.$easing_in-out;
+}
+
+.ProjectLink-Title {
+  padding-top: 4px;
+  font-size: 22px;
+  line-height: 1.2;
+  @each $key, $_, $secondValue in v.$colors-map {
+    .ColorInteract_color_#{$key} & {
+      color: $secondValue;
+    }
+  }
+}
+
+.ProjectLink-Label {
+  font-size: v.$font-size_smaller;
+  font-weight: bold;
+  color: v.$color_second-text;
+}

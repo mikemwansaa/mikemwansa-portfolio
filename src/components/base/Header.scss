@@ -1,0 +1,34 @@
+.Header {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+}
+
+.Header-Content {
+  height: v.$header_height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-bottom: v.$header_border-width solid v.$color_green;
+  background-color: rgba(white, 0.95);
+  transition:
+    color v.$duration_short v.$easing_in-out,
+    background-color v.$duration_standard v.$easing_in-out;
+
+  .App_color_alternate & {
+    @include m.animationAlternate(alternateBorderColor);
+  }
+  .App_color_white & {
+    border-color: white;
+  }
+  @each $key, $value in v.$colors-map {
+    .App_color_#{$key} & {
+      border-color: $value;
+    }
+    .App_background_#{$key} & {
+      background-color: rgba($value, 0.95);
+    }
+  }
+}

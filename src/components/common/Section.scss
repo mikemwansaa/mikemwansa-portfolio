@@ -1,0 +1,50 @@
+.Section {
+  position: relative;
+  padding: 80px 10% 144px;
+  height: 100%;
+  &_wide {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  &_colorful::before {
+    @include m.pseudoGradient;
+  }
+  .App_color_alternate &_colorful {
+    @include m.animationAlternate(alternateBackgroundColor);
+  }
+  @each $key, $value in v.$colors-map {
+    .App_color_#{$key} &_colorful {
+      background-color: $value;
+    }
+  }
+  @include m.md {
+    padding-left: 7.5%;
+    padding-right: 7.5%;
+    .Sections-SectionWrapper:first-child > & {
+      padding-bottom: 80px;
+    }
+  }
+  @include m.sm {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+.Section-Content {
+  max-width: v.$max-content-width;
+  margin: auto;
+  height: 100%;
+  .Section_centeredContent > & {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .Section_wide > & {
+    max-width: v.$max-content-width * 2;
+  }
+  &_footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Mike Mwansa | https://github.com/mikemwansa" />
+    <meta
+      name="description"
+      content="Personal portfolio of Mike Mwansa, Software Engineer & Founder of Akivara Technologies — building technology for real-world African infrastructure constraints"
+    />
+    <meta
+      name="keywords"
+      content="mike mwansa, akivara, zambia, software engineer, react, typescript, python, unza, computer science"
+    />
+    <meta
+      property="og:title"
+      content="Mike Mwansa | Software Engineer | Founder of Akivara Technologies"
+    />
+    <meta
+      property="og:description"
+      content="Personal portfolio of Mike Mwansa, Software Engineer & Founder of Akivara Technologies — building technology for real-world African infrastructure constraints"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mikemwansa.dev" />
+    <meta
+      property="og:image"
+      content="https://mikemwansa.dev/assets/preview.jpg"
+    />
+    <meta property="og:site_name" content="mikemwansa.dev" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image:alt"
+      content="Mike Mwansa | Software Engineer | Founder of Akivara Technologies"
+    />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <link rel="icon" href="/assets/logo-mark.png" />
+    <link
+      rel="mask-icon"
+      href="/assets/safari-pinned-tab.svg"
+      color="#64a6fc"
+    />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link type="text/plain" rel="author" href="/humans.txt" />
+    <title>Mike Mwansa | Software Engineer | Founder of Akivara Technologies</title>
+    <style>
+      @keyframes pulse {
+        from,
+        to {
+          transform: translate(-50%, -50%) scale3d(1, 1, 1);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale3d(1.1, 1.1, 1.1);
+        }
+      }
+      html {
+        overflow-y: scroll;
+      }
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      .Preloader {
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 1000;
+        width: 100vw;
+        height: 100dvh;
+        opacity: 0;
+        pointer-events: none;
+        background-color: #62dafc;
+        transform: scale(5);
+        transition: 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+        transition-property: transform, opacity;
+      }
+      .Preloader::before {
+        content: '';
+        display: block;
+        position: absolute;
+        background-image: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0),
+          rgba(0, 0, 0, 0.1)
+        );
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .Preloader-Logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        opacity: 0.01;
+        transform: translate(-50%, -50%);
+        animation-play-state: paused;
+        transition: opacity 800ms cubic-bezier(0.4, 0, 0.2, 1);
+        animation: pulse 2s infinite;
+      }
+      .Preloader_show {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .Preloader_show .Preloader-Logo {
+        opacity: 1;
+        animation-play-state: running;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preloader" class="Preloader Preloader_show">
+      <div>
+        <img
+          class="Preloader-Logo"
+          height="100"
+          width="100"
+          src="/assets/logo-mark.png"
+          alt=""
+        />
+      </div>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

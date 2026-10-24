@@ -1,0 +1,41 @@
+@use 'sass:list';
+@use 'sass:math';
+
+$pages: 'about', 'skills', 'experience', 'portfolio', 'blog', 'contact';
+
+.Navigation {
+  position: relative;
+  width: v.$sidebar-width;
+  margin-bottom: 48px;
+  &::after {
+    @include m.pseudo;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 54px;
+    border-radius: math.div(v.$border-radius, 2);
+    transition:
+      transform v.$duration_medium-long v.$easing_out,
+      background-color v.$duration_short v.$easing_in-out;
+    @for $index from 1 through list.length($pages) {
+      $page: list.nth($pages, $index);
+      .App_page_#{$page} & {
+        transform: translate3d(0, 54px * $index, 0);
+      }
+    }
+    .App_color_alternate & {
+      @include m.animationAlternate(alternateBackgroundColor);
+    }
+    .App_color_white & {
+      background-color: white;
+    }
+    @each $key, $value in v.$colors-map {
+      .App_color_#{$key} & {
+        background-color: $value;
+      }
+    }
+  }
+  .Header-Drawer > & {
+    padding-bottom: 24px;
+  }
+}

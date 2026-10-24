@@ -1,0 +1,29 @@
+.Pagination {
+  position: relative;
+  &_halfWidth {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    @include m.md {
+      .App_background_blue &,
+      .App_background_red & {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.Pagination-Links {
+  justify-content: center;
+  @include m.xs {
+    flex-direction: column-reverse;
+  }
+}
+
+.Pagination-Link {
+  color: white;
+  background-color: rgba(white, 0.1);
+  @include m.hover {
+    background-color: rgba(white, 0.2);
+  }
+}

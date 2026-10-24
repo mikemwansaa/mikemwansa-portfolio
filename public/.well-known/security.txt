@@ -1,0 +1,5 @@
+Contact: mailto:hello@mikemwansa.dev
+Contact: https://mikemwansa.dev/contact
+Expires: 2027-08-01T00:00:00Z
+Preferred-Languages: en
+Canonical: https://mikemwansa.dev/.well-known/security.txt

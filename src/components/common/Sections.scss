@@ -1,0 +1,11 @@
+.Sections {
+  height: 100%;
+  overflow: hidden;
+}
+
+.Sections-Animated {
+  @include m.animation(fadeInRight);
+  @include m.md {
+    animation: none;
+  }
+}

@@ -1,0 +1,89 @@
+.SocialLinks {
+  display: flex;
+  justify-content: center;
+  @include m.xs {
+    flex-wrap: wrap;
+    padding-left: 25%;
+    padding-right: 25%;
+    margin-bottom: -16px;
+  }
+}
+
+// 'about' variant: icons arc around the bottom of the circular photo.
+// Each item gets its left/top set inline (as a percentage of the photo
+// wrapper) from SocialLinks.tsx, so the arc scales correctly at every
+// screen size and with any number of icons — no hardcoded breakpoint
+// pixel tables needed.
+.SocialLinks_about {
+  position: absolute;
+  inset: 0;
+  margin-bottom: 0;
+  padding: 0;
+  flex-wrap: nowrap;
+  z-index: 2;
+  @include m.xs {
+    padding: 0;
+  }
+}
+
+.SocialLinks-Item {
+  margin-left: 8px;
+  margin-right: 8px;
+  @include m.xs {
+    margin: 0 8px 16px 8px;
+  }
+  .SocialLinks_about > & {
+    position: absolute;
+    margin: 0;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.SocialLinks-ItemInner {
+  display: inline-block;
+}
+
+.SocialLinks-Icon {
+  &_size_xs {
+    width: 20px;
+    height: 20px;
+  }
+  &_size_sm {
+    width: 22px;
+    height: 22px;
+  }
+  &_size_md {
+    width: 24px;
+    height: 24px;
+  }
+  &_size_lg {
+    width: 28px;
+    height: 28px;
+  }
+  &_size_xl {
+    width: 32px;
+    height: 32px;
+  }
+  @include m.sm {
+    &_size_xs {
+      width: 18px;
+      height: 18px;
+    }
+    &_size_sm {
+      width: 19px;
+      height: 19px;
+    }
+    &_size_md {
+      width: 21px;
+      height: 21px;
+    }
+    &_size_lg {
+      width: 24px;
+      height: 24px;
+    }
+    &_size_xl {
+      width: 28px;
+      height: 28px;
+    }
+  }
+}

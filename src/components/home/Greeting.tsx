@@ -1,0 +1,163 @@
+import {Link} from 'react-router-dom'
+import {useTranslation} from 'react-i18next'
+import {getHours} from 'date-fns'
+import {Button} from '@mui/material'
+import {
+  WidgetsRounded as WidgetsIcon,
+  MailRounded as MailIcon,
+  WorkRounded as WorkIcon,
+} from '@mui/icons-material'
+
+import './Greeting.scss'
+import frontendImg from '#assets/img/pictures/frontend.svg'
+import meImg from '#assets/img/pictures/me.jpg'
+import me2xImg from '#assets/img/pictures/me@2x.jpg'
+import meMdImg from '#assets/img/pictures/me_md.jpg'
+import meMd2xImg from '#assets/img/pictures/me_md@2x.jpg'
+import meXsImg from '#assets/img/pictures/me_xs.jpg'
+import meXs2xImg from '#assets/img/pictures/me_xs@2x.jpg'
+import meNewYearImg from '#assets/img/pictures/me-santa.jpg'
+import meNewYear2xImg from '#assets/img/pictures/me-santa@2x.jpg'
+import meNewYearMdImg from '#assets/img/pictures/me-santa_md.jpg'
+import meNewYearMd2xImg from '#assets/img/pictures/me-santa_md@2x.jpg'
+import meNewYearXsImg from '#assets/img/pictures/me-santa_xs.jpg'
+import meNewYearXs2xImg from '#assets/img/pictures/me-santa_xs@2x.jpg'
+import {Section} from '#components/common'
+import HelloIcon from '#assets/icons/hello.svg?react'
+import {CONTACT_LINK, MY_NAME} from '#data/common'
+import {
+  ROUTE,
+  QUERY_BREAKPOINT,
+  BLANK_LINK_PROPS,
+  IS_NEW_YEAR_MODE,
+} from '#utils/constants'
+
+export default function Greeting() {
+  const {t} = useTranslation()
+
+  return (
+    <Section centeredContent className="Greeting">
+      <p className="Greeting-Text Greeting-One Title">
+        {t(`home.hi.${getDayTime()}`)}
+        <span className="Greeting-Nowrap">
+          !
+          <span className="Greeting-IconWrapper Greeting-Two">
+            <HelloIcon className="Greeting-Icon" />
+          </span>
+        </span>
+      </p>
+      <h1 className="Greeting-Text Title">
+        <span className="Greeting-Part Greeting-Text Greeting-Three Title">
+          {t('home.iam')}
+        </span>{' '}
+        <span className="Greeting-Part Greeting-Four">
+          <span className="Greeting-Main">Mike</span>
+        </span>{' '}
+        <span className="Greeting-Part Greeting-Five">
+          <span className="Greeting-Main">Mwansa</span>
+          <span className="Greeting-Part Greeting-Six">,</span>
+        </span>
+      </h1>
+      <p className="Greeting-Text Title">
+        <span className="Greeting-Part Greeting-Seven">
+          <strong className="Greeting-Word">
+            {t('home.occupation.part1')}
+            <Link
+              className="Greeting-Badge Greeting-Badge_first"
+              to={ROUTE.skills}
+            >
+              <img
+                className="Greeting-BadgeImg"
+                width={60}
+                height={68}
+                src={frontendImg}
+                alt="Frontend"
+              />
+            </Link>
+          </strong>
+          <br />
+          <strong>{t('home.occupation.part2')}</strong>{' '}
+          <span className="Greeting-Part Greeting-Subtext Greeting-Eight">
+            &&
+          </span>
+        </span>
+        <br />
+        <span className="Greeting-Part Greeting-Nine">
+          <strong>
+            <span className="Greeting-Word">
+              {t('home.occupation.part3')}
+              <a
+                {...BLANK_LINK_PROPS}
+                className="Greeting-Badge Greeting-Badge_second"
+                href={CONTACT_LINK.gitHub.href}
+              >
+                <CONTACT_LINK.gitHub.Icon
+                  className="Greeting-BadgeImg"
+                  width={46}
+                  height={46}
+                />
+              </a>
+            </span>
+          </strong>
+        </span>
+      </p>
+      <div className="Greeting-Actions Actions">
+        {links.map(({Icon, ...link}) => (
+          <Button
+            key={link.key}
+            className={`Greeting-Button Button Button_color_${link.color}`}
+            component={Link}
+            to={ROUTE[link.key]}
+            size="large"
+            endIcon={<Icon />}
+          >
+            {t(`title.${link.key}`)}
+          </Button>
+        ))}
+      </div>
+      <picture>
+        <source
+          width={180}
+          media={QUERY_BREAKPOINT.xs}
+          srcSet={`${me.xsImg}, ${me.xsImg2x} 2x`}
+        />
+        <source
+          width={320}
+          media={QUERY_BREAKPOINT.lg}
+          srcSet={`${me.mdImg}, ${me.mdImg2x} 2x`}
+        />
+        <img
+          className="Greeting-Photo"
+          width={480}
+          src={me.img}
+          srcSet={`${me.img2x} 2x`}
+          alt={MY_NAME}
+          loading="lazy"
+        />
+      </picture>
+    </Section>
+  )
+}
+
+const getDayTime = (): 'night' | 'morning' | 'afternoon' | 'evening' => {
+  const hours = getHours(new Date())
+  if (hours >= 0 && hours < 6) return 'night'
+  if (hours >= 6 && hours < 12) return 'morning'
+  if (hours >= 12 && hours < 18) return 'afternoon'
+  return 'evening'
+}
+
+const links = [
+  {key: 'portfolio', color: 'blue', Icon: WidgetsIcon},
+  {key: 'experience', color: 'red', Icon: WorkIcon},
+  {key: 'contact', color: 'green', Icon: MailIcon},
+]
+
+const me = {
+  img: IS_NEW_YEAR_MODE ? meNewYearImg : meImg,
+  img2x: IS_NEW_YEAR_MODE ? meNewYear2xImg : me2xImg,
+  mdImg: IS_NEW_YEAR_MODE ? meNewYearMdImg : meMdImg,
+  mdImg2x: IS_NEW_YEAR_MODE ? meNewYearMd2xImg : meMd2xImg,
+  xsImg: IS_NEW_YEAR_MODE ? meNewYearXsImg : meXsImg,
+  xsImg2x: IS_NEW_YEAR_MODE ? meNewYearXs2xImg : meXs2xImg,
+}

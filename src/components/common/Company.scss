@@ -1,0 +1,48 @@
+$padding_st: 12px;
+$padding_sm: 10px;
+
+$img-height_st: 36px;
+$img-height_sm: 30px;
+
+.Company {
+  padding: $padding_st;
+  &_animated {
+    @include m.animation(fadeInTop);
+    margin-left: -$padding_st;
+    margin-right: -$padding_st;
+  }
+  @include m.lg {
+    padding: $padding_sm;
+    &_animated {
+      margin-left: -$padding_sm;
+      margin-right: -$padding_sm;
+    }
+  }
+  @include m.md {
+    padding: $padding_st;
+    &_animated {
+      margin-left: -$padding_st;
+      margin-right: -$padding_st;
+    }
+  }
+  @include m.sm {
+    padding: $padding_sm;
+    &_animated {
+      margin-left: -$padding_sm;
+      margin-right: -$padding_sm;
+    }
+  }
+}
+
+.Company-Image {
+  height: $img-height_st;
+  @include m.lg {
+    height: $img-height_sm;
+  }
+  @include m.md {
+    height: $img-height_st;
+  }
+  @include m.sm {
+    height: $img-height_sm;
+  }
+}

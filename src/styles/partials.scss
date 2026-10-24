@@ -1,0 +1,280 @@
+@use 'styles/variables' as v;
+@use 'styles/mixins' as m;
+
+.VisuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  bottom: 0;
+  padding: 0;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+}
+
+.Colorful {
+  .App_color_alternate & {
+    @include m.animationAlternate;
+  }
+  .App_color_white & {
+    color: white;
+    outline-color: white;
+  }
+  @each $key, $value, $second-value in v.$colors-map {
+    .App_color_#{$key} & {
+      color: $value;
+      outline-color: $value;
+      &_dark {
+        color: rgba($second-value, v.$dark-alfa);
+      }
+    }
+  }
+}
+
+.Title {
+  @include m.animation(fadeIn);
+  font-size: 72px;
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+  &_mediumIndent {
+    margin-bottom: 0.32em;
+  }
+  &_smallIndent {
+    margin-bottom: 0.16em;
+  }
+  &_withIcon {
+    display: flex;
+    align-items: center;
+  }
+  &_fadeInBottom {
+    @include m.animation(fadeInBottom);
+  }
+  .App_color_white & {
+    color: white;
+  }
+  @each $key, $value in v.$colors-map {
+    .App_color_#{$key} & {
+      color: $value;
+    }
+  }
+  @include m.lg {
+    font-size: 56px;
+  }
+  @include m.xs {
+    font-size: 42px;
+  }
+}
+
+.TitleIconWrapper {
+  padding: 8px;
+  display: flex;
+  margin-left: 0.2em;
+}
+
+.Text {
+  font-size: 30px;
+  line-height: 1.5;
+  @include m.lg {
+    font-size: 26px;
+  }
+  @include m.xs {
+    font-size: 22px;
+  }
+}
+
+.MainText {
+  @extend .Text;
+  @include m.animation(fadeInBottom);
+  margin-bottom: 2em;
+  color: v.$color_second-text;
+  &_dark {
+    color: v.$color_text;
+  }
+  &_noAnimation {
+    animation: none;
+  }
+}
+
+.Button {
+  color: white;
+  &:not(:last-child) {
+    margin-right: 16px;
+  }
+  &_color_blue {
+    &.MuiButton-text {
+      color: v.$color_dark-blue;
+      background-color: rgba(v.$color_blue, 0.2);
+      @include m.hover {
+        background-color: rgba(v.$color_blue, 0.4);
+      }
+    }
+  }
+  &_color_green {
+    &.MuiButton-text {
+      color: v.$color_dark-green;
+      background-color: rgba(v.$color_green, 0.2);
+      @include m.hover {
+        background-color: rgba(v.$color_green, 0.4);
+      }
+    }
+  }
+  &_color_red {
+    &.MuiButton-text {
+      color: v.$color_dark-red;
+      background-color: rgba(v.$color_red, 0.2);
+      @include m.hover {
+        background-color: rgba(v.$color_red, 0.4);
+      }
+    }
+  }
+  &_color_white,
+  .App_color_white & {
+    color: v.$color_text;
+    &,
+    &:hover {
+      background-color: white;
+    }
+    @include m.hover {
+      background-color: v.$color_light-grey;
+    }
+  }
+  @each $key, $value, $second-value in v.$colors-map {
+    .App_color_#{$key} & {
+      &.MuiButton-text {
+        color: $second-value;
+        background-color: rgba($value, 0.2);
+        @include m.hover {
+          background-color: rgba($value, 0.4);
+        }
+      }
+      &.MuiButton-outlined:not(.MuiButton-colorInfo) {
+        color: $second-value;
+        border-color: rgba($second-value, 0.5);
+        @include m.hover {
+          border-color: $second-value;
+          background-color: rgba($second-value, 0.04);
+        }
+      }
+    }
+  }
+  @include m.xs {
+    width: 100%;
+    margin-right: 0;
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+}
+
+.NavigationButton {
+  color: v.$color_text;
+  font-size: 32px;
+  height: 54px;
+  &.active {
+    @extend .Colorful;
+  }
+  .App_color_white &:not(.active) {
+    color: rgba(white, 0.7);
+  }
+}
+
+.Link {
+  font-weight: bold;
+  user-select: auto;
+  white-space: nowrap;
+  transition: text-decoration-color v.$duration_shortest v.$easing_out;
+  &_white,
+  .App_color_white & {
+    color: white;
+    outline-color: white;
+    text-decoration-color: rgba(white, 0.3);
+    @include m.hover {
+      text-decoration-color: white;
+    }
+  }
+  @each $key, $value, $second-value in v.$colors-map {
+    .App_color_#{$key} &:not(.Link_white) {
+      color: $second-value;
+      outline-color: $second-value;
+      text-decoration-color: rgba($second-value, 0.3);
+      @include m.hover {
+        text-decoration-color: $second-value;
+      }
+    }
+  }
+}
+
+.Actions {
+  margin-top: 56px;
+  &_center {
+    text-align: center;
+  }
+  &_second {
+    margin-top: 36px;
+  }
+  @include m.md {
+    margin-top: 48px;
+    &_second {
+      margin-top: 24px;
+    }
+  }
+}
+
+.ColorInteract {
+  position: relative;
+  border-radius: v.$border-radius;
+  @each $key, $value in v.$colors-map {
+    &_color_#{$key} {
+      color: $value;
+      &::before {
+        background-color: rgba($value, 0.12);
+      }
+    }
+  }
+  &::before {
+    @include m.pseudo;
+    border-radius: v.$border-radius;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 1;
+    transform: scale(0.8);
+    transition:
+      transform v.$duration_short v.$easing_in-out,
+      opacity v.$duration_short v.$easing_in-out;
+  }
+  & > .MuiTouchRipple-root {
+    z-index: 1;
+  }
+  @include m.hover {
+    &::before {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+.ButtonIcon {
+  font-size: 32px;
+}
+
+.Time {
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.Tabs {
+  @include m.animation(fadeIn);
+  margin-bottom: 24px;
+}
+
+.Lowercase {
+  text-transform: lowercase;
+}
+
+.TooltipParagraph {
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}

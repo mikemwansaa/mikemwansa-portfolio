@@ -1,0 +1,10 @@
+/* TEAM */
+	Author: Mike Mwansa
+	GitHub: https://github.com/mikemwansaa
+	Contact: mikemwansa114@gmail.com | https://mikemwansa.dev/contact
+
+/* SITE */
+	Last update: build-time
+	Language: English
+	Components: TypeScript, React, Material UI, Sass, Vite
+	Software: Visual Studio Code, Claude Code, Figma
