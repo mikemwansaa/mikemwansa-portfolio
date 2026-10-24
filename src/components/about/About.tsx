@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {Link as MuiLink, Button} from '@mui/material'
 
@@ -16,6 +17,7 @@ import {
   PersonPinCircleRounded as PersonPinCircleIcon,
   HeadphonesRounded as HeadphonesIcon,
   DownloadRounded as DownloadIcon,
+  VisibilityRounded as VisibilityIcon,
 } from '@mui/icons-material'
 
 import {Sections, Info} from '#components/common'
@@ -23,9 +25,12 @@ import {PROJECTS_COUNT} from '#data/projects'
 import {TECHNOLOGY_TITLE} from '#data/technologies'
 import {YEARS_OF_EXPERIENCE, ROUTE} from '#utils/constants'
 import Social from './Social'
+import ResumeViewer, {RESUME_URL} from './ResumeViewer'
 import type {IFeature} from '#utils/types'
 
 export default function About() {
+  const [resumeOpen, setResumeOpen] = useState(false)
+
   return (
     <Sections
       firstSection={
@@ -39,7 +44,15 @@ export default function About() {
           <div className="About-ResumeAction">
             <Button
               className="Button Button_color_blue"
-              href="/resume.pdf"
+              size="large"
+              endIcon={<VisibilityIcon />}
+              onClick={() => setResumeOpen(true)}
+            >
+              View resume
+            </Button>
+            <Button
+              className="Button Button_color_blue"
+              href={RESUME_URL}
               download
               size="large"
               endIcon={<DownloadIcon />}
@@ -47,6 +60,10 @@ export default function About() {
               Download resume
             </Button>
           </div>
+          <ResumeViewer
+            open={resumeOpen}
+            onClose={() => setResumeOpen(false)}
+          />
         </Info>
       }
       secondSection={<Social />}

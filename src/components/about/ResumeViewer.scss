@@ -1,0 +1,57 @@
+.ResumeViewer {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.ResumeViewer-Bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  @include m.sm {
+    padding: 4px 8px;
+  }
+}
+
+.ResumeViewer-Title {
+  margin: 0;
+  font-size: 20px;
+}
+
+.ResumeViewer-Actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ResumeViewer-Action {
+  @include m.sm {
+    // Keep the bar compact on phones: icon only.
+    min-width: 0;
+    padding: 6px;
+    font-size: 0;
+    .MuiButton-icon {
+      margin: 0;
+    }
+  }
+}
+
+.ResumeViewer-Frame {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+}
+
+.ResumeViewer-Fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 48px 24px;
+  text-align: center;
+}
